@@ -1,0 +1,102 @@
+{
+  "name": "www.nhactube.com",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/desktop-app/index.js",
+  "engines": {
+    "node": ">=10.15.3",
+    "yarn": ">=1.16.0"
+  },
+  "build": {
+    "appId": "www.nhactube.com",
+    "productName": "NhacTube",
+    "dmg": {
+      "contents": [
+        {
+          "x": 130,
+          "y": 220
+        },
+        {
+          "x": 410,
+          "y": 220,
+          "type": "link",
+          "path": "/Applications"
+        }
+      ]
+    },
+    "directories": {
+      "buildResources": "dist",
+      "output": "release"
+    }
+  },
+  "scripts": {
+    "postinstall": "electron-builder install-app-deps package.json",
+    "lint": "eslint ./src --",
+    "clean-dist": "rimraf \"dist\"",
+    "build": "yarn clean-dist && cross-env NODE_ENV=production webpack --config webpack/prod.config.js",
+    "build-mobile": "yarn clean-dist && cross-env-shell APP_MODE=mobile NODE_ENV=production webpack --config webpack/prod.config.js",
+    "build-desktop": "yarn clean-dist && cross-env-shell APP_MODE=desktop NODE_ENV=production webpack --config webpack/prod.config.js",
+    "dev": "cross-env NODE_ENV=development node dev-server",
+    "start-web": "yarn build && serve dist -p 8080",
+    "start-desktop": "electron ./src/desktop-app",
+    "deploy": "yarn build && firebase deploy --only hosting:nhactube",
+    "start": "electron ./src/desktop-app",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "author": "Hoang Nguyen",
+  "license": "ISC",
+  "dependencies": {
+    "classnames": "^2.2.6",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-helmet": "^5.2.1",
+    "react-redux": "^7.1.1",
+    "react-router-dom": "^5.0.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "reselect": "^4.0.0",
+    "styled-components": "^4.3.2",
+    "workbox-window": "^4.3.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-async-to-generator": "^7.5.0",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/polyfill": "^7.6.0",
+    "@babel/preset-env": "^7.5.5",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.6",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "chalk": "^2.4.2",
+    "compression": "^1.7.4",
+    "compression-webpack-plugin": "^3.0.0",
+    "copy-webpack-plugin": "^5.0.4",
+    "cross-env": "^5.2.1",
+    "electron": "^6.0.10",
+    "electron-builder": "^21.2.0",
+    "electron-packager": "^14.0.6",
+    "eslint": "^6.5.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-react": "^7.15.1",
+    "eslint-plugin-react-hooks": "^2.1.1",
+    "express": "^4.17.1",
+    "favicons-webpack-plugin": "^1.0.2",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "3.2.0",
+    "ip": "^1.1.5",
+    "path": "^0.12.7",
+    "preload-webpack-plugin": "^3.0.0-beta.3",
+    "redux-devtools-extension": "^2.13.8",
+    "rimraf": "^3.0.0",
+    "script-ext-html-webpack-plugin": "^2.1.4",
+    "url": "^0.11.0",
+    "webpack": "^4.39.3",
+    "webpack-cli": "^3.3.8",
+    "webpack-dev-middleware": "^3.7.1",
+    "webpack-hot-middleware": "^2.25.0",
+    "webpack-pwa-manifest": "^4.0.0",
+    "workbox-webpack-plugin": "^4.3.1"
+  }
+}
